@@ -1,11 +1,7 @@
 package com.idz.androidactivityfundamentals
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.GridLayout
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +16,7 @@ class MainActivity : AppCompatActivity() {
      * - Triggered when the activity is launched for the first time.
      */
     private lateinit var board: Array<Array<ImageView>>
-    private var turn = 0;
+    private var turn = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +45,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onCellClick(cell: ImageView) {
-        val player = turn % 2;
+        val player = turn % 2
         if (cell.tag == "X" || cell.tag == "O") {
-            return;
+            return
         }
 
         if (player == 0) {
@@ -62,8 +58,8 @@ class MainActivity : AppCompatActivity() {
             cell.tag = "O"
         }
 
-        val row = cell.getTag(R.id.row) as Int;
-        val col = cell.getTag(R.id.col) as Int;
+        val row = cell.getTag(R.id.row) as Int
+        val col = cell.getTag(R.id.col) as Int
 
         if (isWinner(row, col)) {
             //WIN
@@ -89,11 +85,11 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        turn++;
+        turn++
     }
 
     private fun isWinner(row: Int, col: Int): Boolean {
-        val playerTag = board[row][col].tag;
+        val playerTag = board[row][col].tag
 
         if (board[row].all { cell -> cell.tag == playerTag }) {
             board[row].forEach { cell -> cell.setBackgroundResource(R.drawable.cell_win) }
