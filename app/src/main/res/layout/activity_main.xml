@@ -8,6 +8,15 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <TextView
+        android:id="@+id/turn_showcase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:translationY="-20dp" />
+
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="300dp"
         android:layout_height="300dp"
