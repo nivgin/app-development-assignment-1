@@ -3,6 +3,7 @@ package com.idz.androidactivityfundamentals
 import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,12 +17,16 @@ class MainActivity : AppCompatActivity() {
      * - Triggered when the activity is launched for the first time.
      */
     private lateinit var board: Array<Array<ImageView>>
+    private lateinit var turnShowcase: TextView
     private var turn = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        turnShowcase = findViewById(R.id.turn_showcase)
+        turnShowcase.text = "Player X's Turn"
 
         board = arrayOf(
             arrayOf(findViewById(R.id.cell0), findViewById(R.id.cell3), findViewById(R.id.cell6)),
@@ -51,9 +56,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (player == 0) {
+            turnShowcase.text = "Player O's Turn"
             cell.setImageResource(R.drawable.ic_x)
             cell.tag = "X"
         } else {
+            turnShowcase.text = "Player X's Turn"
             cell.setImageResource(R.drawable.ic_o)
             cell.tag = "O"
         }
@@ -84,7 +91,6 @@ class MainActivity : AppCompatActivity() {
                 .show()
             return
         }
-
         turn++
     }
 
@@ -117,6 +123,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startNewGame() {
         turn = 0
+        turnShowcase.text = "Player X's Turn"
         for (row in 0..2) {
             for (col in 0..2) {
                 val cell = board[row][col]
