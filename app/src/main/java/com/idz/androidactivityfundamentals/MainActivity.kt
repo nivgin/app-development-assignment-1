@@ -1,5 +1,6 @@
 package com.idz.androidactivityfundamentals
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -64,15 +65,28 @@ class MainActivity : AppCompatActivity() {
         val row = cell.getTag(R.id.row) as Int;
         val col = cell.getTag(R.id.col) as Int;
 
-        if (turn >= 9) {
-            //DRAW
+        if (isWinner(row, col)) {
+            //WIN
+            AlertDialog.Builder(this)
+                .setTitle("${cell.tag} Wins!")
+                .setCancelable(false)
+                .setPositiveButton("Play Again") { _, _ ->
+                    startNewGame()
+                }
+                .show()
             return
         }
 
-        if (isWinner(row, col)) {
-            //WIN
-            turn = 10;
-            return;
+        if (turn >= 8) {
+            //DRAW
+            AlertDialog.Builder(this)
+                .setTitle("Draw!")
+                .setCancelable(false)
+                .setPositiveButton("Play Again") { _, _ ->
+                    startNewGame()
+                }
+                .show()
+            return
         }
 
         turn++;
@@ -103,5 +117,18 @@ class MainActivity : AppCompatActivity() {
 
         return false
 
+    }
+
+    private fun startNewGame() {
+        turn = 0
+        for (row in 0..2) {
+            for (col in 0..2) {
+                val cell = board[row][col]
+
+                cell.setImageResource(0)
+                cell.tag = "0"
+                cell.setBackgroundResource(R.drawable.cell_border)
+            }
+        }
     }
 }
